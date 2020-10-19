@@ -10,6 +10,7 @@ var booksRouter = require('./routes/books');
 var app = express();
 
 const { sequelize } = require('./models');
+
 (async () => {
   try {
     await sequelize.authenticate();
