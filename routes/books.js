@@ -24,25 +24,25 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 
-/* Create NEW article form */
+/* Create NEW book form */
 router.get('/new', (req, res) => {
-  res.render('new-book', { book: {}, title: "New Book" });
+  res.render('new-book', { book: {} });
 });
 
 
 /* POST create book */
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/new', asyncHandler(async (req, res) => {
   console.log(req.body)
   const book = await Book.create(req.body);
-  res.redirect('/');
+  res.redirect('/books');
   // let book;
   // try {
   //   book = await Book.create(req.body);
-  //   res.redirect('/books/' + book.id);
+  //   res.redirect('/books);
   // } catch (error) {
   //   if (error.name === "SequelizeValidationError") {
   //     article = await Article.build(req.body);
-  //     res.render('books/new', { books, errors: error.errors, title: "New Article" })
+  //     res.render('books/new', { books, errors: error.errors})
   //   } else {
   //     throw error;
   //   }
@@ -54,7 +54,7 @@ router.post('/', asyncHandler(async (req, res) => {
 router.get('/:id', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
-    res.render('update-book', { book, title: 'Edit book' });
+    res.render('update-book', { book });
   } else {
     res.sendStatus(404);
   }
@@ -62,19 +62,20 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 
 /* update book */
-router.post('/:id', asyncHandler(async (res, req) => {
+router.post('/:id', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
+  console.log(book);
   await book.update(req.body);
-  res.redirect('/' + book.id)
+  res.redirect('/')
 }));
 
 
 /* DELETE A BOOK */ 
-router.get('/:id/delete', asyncHandler(async (res, req) => {
+router.post('/:id/delete', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
     await book.destroy();
-    res.redirect('/');
+    res.redirect('/books');
   } else {
     res.sendStatus(404);
   }

@@ -19,9 +19,8 @@ block content
         td Non Fiction
         td 1988
       each book in books
-        book
-          td
-            a(href='books/'+ book.id) #{book.title}
-            td #{book.author}
-            td #{book.genre}
-            td #{book.year}
+        td
+          a(href='books/'+ book.id) #{book.title}
+        td #{book.author}
+        td #{book.genre}
+        td #{book.year}
