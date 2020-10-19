@@ -5,8 +5,8 @@ block content
     form(action="/books/new", method="post")
         h2.error Oooops!
         ul.error
-            li Author is required
-            li Name is required
+            each error in errors
+                li= error.message
         p
             label(for='title') Title
             input#title(name='title' type='text')
